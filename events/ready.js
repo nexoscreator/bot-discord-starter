@@ -13,16 +13,8 @@ module.exports = {
 		// 	.then(user => console.log(`My new username is ${user.username}`))
 		// 	.catch(console.error);
 
-		// Set activity with error handling
-		try {
-			client.user.setActivity('with JavaScript', { type: 'PLAYING' });
-			console.log('Activity set to playing with JavaScript');
-		} catch (error) {
-			console.error('Failed to set activity:', error);
-		}
-
 		// Set streaming activity with URL
-		// client.user.setActivity('Streaming', { type: 'STREAMING', url: 'https://www.youtube.com/nexoscreator' });
+		client.user.setActivity('Streaming', { type: 'STREAMING', url: 'https://www.youtube.com/nexoscreator' });
 
 
 		// Schedule task to run every 30 minutes
