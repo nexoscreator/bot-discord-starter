@@ -1,10 +1,11 @@
+// commands/ping.js
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName('ping')
-    .setDescription('Get bot ping!'),
-  async execute(interaction) {
-    await interaction.reply(`Websocket heartbeat: ${client.ws.ping}ms.`);
-  },
+    data: new SlashCommandBuilder()
+        .setName('ping')
+        .setDescription('Replies with Pong!'),
+    async execute(interaction) {
+        await interaction.reply('Pong!');
+    },
 };

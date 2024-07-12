@@ -1,51 +1,38 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, GatewayIntentBits } = require('discord.js'); 
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const dotenv = require('dotenv');  //initializes dotenv
 dotenv.config();
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
-// setting up bot
-// client.user.setUsername('username');
-// client.user.setAvatar('URL or path');
-// client.user.setPresence({ activities: [{ name: 'activity' }], status: PresenceUpdateStatus.DoNotDisturb });
-// Listening ,Competing , Watching
-// client.user.setActivity('activity', { type: ActivityType.Watching });  
-// Online, Idle, DoNotDisturb, Invisible
-// client.user.setStatus(PresenceUpdateStatus.DoNotDisturb); 
-
-client.on('message', msg => {
-  if (msg.content === 'ping') {
-    msg.reply('Pong!');
-  }
+const client = new Client({
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent
+	]
 });
 
 client.commands = new Collection();
-const foldersPath = path.join(__dirname, 'commands');
-const commandFolders = fs.readdirSync(foldersPath);
 
-for (const folder of commandFolders) {
-	const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-	for (const file of commandFiles) {
-		const filePath = path.join(commandsPath, file);
-		const command = require(filePath);
-		// Set a new item in the Collection with the key as the command name and the value as the exported module
-		if ('data' in command && 'execute' in command) {
-			client.commands.set(command.data.name, command);
-		} else {
-			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
-		}
-	}
+// basic command
+const BasiccommandFiles = fs.readdirSync('./commands/basics').filter(file => file.endsWith('.js'));
+for (const file of BasiccommandFiles) {
+	const command = require(`./commands/basics/${file}`);
+	client.commands.set(command.name, command);
 }
 
-const eventsPath = path.join(__dirname, 'events');
-const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+// slash command
+const SlashcommandFiles = fs.readdirSync('./commands/utility').filter(file => file.endsWith('.js'));
+for (const file of SlashcommandFiles) {
+    const command = require(`./commands/utility/${file}`);
+    client.commands.set(command.data.name, command);
+}
 
+// events
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
-	const filePath = path.join(eventsPath, file);
-	const event = require(filePath);
+	const event = require(`./events/${file}`);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));
 	} else {
@@ -53,5 +40,32 @@ for (const file of eventFiles) {
 	}
 }
 
+client.on('messageCreate', message => {
+	if (!message.content.startsWith(process.env.BOT_PREFIX) || message.author.bot) return;
+
+	const args = message.content.slice(process.env.BOT_PREFIX.length).trim().split(/ +/);
+	const commandName = args.shift().toLowerCase();
+
+	if (!client.commands.has(commandName)) return;
+
+	const command = client.commands.get(commandName);
+
+	try {
+		command.execute(message, args);
+	} catch (error) {
+		console.error(error);
+		message.reply('There was an error executing that command.');
+	}
+});
+
+// Error handling
+client.on('error', console.error);
+client.on('shardError', (error) => {
+	console.error('A websocket connection encountered an error:', error);
+});
+
+
 // Log in to Discord with your client's token
-client.login(process.env.DISCORD_TOKEN);
+client.login(process.env.DISCORD_TOKEN)
+	.then(() => console.log('Bot logged in successfully'))
+	.catch(console.error);
