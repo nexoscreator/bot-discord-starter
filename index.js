@@ -1,5 +1,5 @@
 const fs = require('node:fs');
-const path = require('node:path');
+// const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const dotenv = require('dotenv');  //initializes dotenv
 dotenv.config();
@@ -17,15 +17,15 @@ const client = new Client({
 client.commands = new Collection();
 
 // basic command
-const BasiccommandFiles = fs.readdirSync('./commands/basics').filter(file => file.endsWith('.js'));
-for (const file of BasiccommandFiles) {
+const BasicCommandFiles = fs.readdirSync('./commands/basics').filter(file => file.endsWith('.js'));
+for (const file of BasicCommandFiles) {
 	const command = require(`./commands/basics/${file}`);
 	client.commands.set(command.name, command);
 }
 
 // slash command
-const SlashcommandFiles = fs.readdirSync('./commands/utility').filter(file => file.endsWith('.js'));
-for (const file of SlashcommandFiles) {
+const SlashCommandFiles = fs.readdirSync('./commands/utility').filter(file => file.endsWith('.js'));
+for (const file of SlashCommandFiles) {
     const command = require(`./commands/utility/${file}`);
     client.commands.set(command.data.name, command);
 }
