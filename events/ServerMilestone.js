@@ -9,9 +9,9 @@ module.exports = {
 
         if (memberCount === 100 || memberCount === 500 || memberCount === 1000) {
             const milestoneMessage = `
-        🎉 Hooray! We've just reached ${memberCount} members! 🎉
-        
-        Thank you all for being a part of this amazing community. Let's continue to grow and have fun together!
+            🎉 Hooray! We've just reached ${memberCount} members! 
+            
+            🎉Thank you all for being a part of this amazing community. Let's continue to grow and have fun together!
         `;
 
             channel.send(milestoneMessage);

@@ -4,7 +4,7 @@ module.exports = {
         if (message.author.bot) return;
 
         // Offensive Words Logic
-        const offensiveWords = ['badword1', 'badword2', 'badword3']; // Add your offensive words here
+        const offensiveWords = ["abuse", "ass", "bastard", "bitch", "bollocks", "bugger", "bullshit", "crap", "cunt", "damn", "fuck", "goddamn", "hell", "motherfucker", "nigga", "nigger", "piss", "prick", "shit", "slut", "twat", "whore"]; // Add your offensive words here
         const messageContent = message.content.toLowerCase();
 
         for (const word of offensiveWords) {

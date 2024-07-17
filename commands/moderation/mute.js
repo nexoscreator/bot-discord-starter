@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
-const { MuteRoleID } = require('./../../config/bot.json');
+const { MuteRoleID } = require('../../config/bot.json');
 
 module.exports = {
     data: new SlashCommandBuilder()

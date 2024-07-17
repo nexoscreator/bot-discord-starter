@@ -16,14 +16,16 @@ module.exports = {
 
     if (!args.length) {
       const helpEmbed = new EmbedBuilder()
-        .setColor('#0099ff')
+        .setColor('#00f576')
         .setTitle('Help - List of Commands')
+        .setURL("https://bot.nexoscreation.com")
         .setDescription('Here\'s a list of all my commands:')
         .addFields(
           { name: 'Commands', value: commands.map(command => `\`${command.name}\`: ${command.description}`).join('\n') },
           { name: 'Usage', value: `You can send \`${process.env.BOT_PREFIX}help [command name]\` to get info on a specific command!` }
         )
-        .setFooter({ text: 'Bot Help Command', iconURL: 'https://i.imgur.com/wSTFkRM.png' });
+        .setFooter({ text: 'Nexos Creator', iconURL: 'https://nexoscreation.com/logo.png' })
+        .setTimestamp();
 
       return message.channel.send({ embeds: [helpEmbed] });
     }
@@ -36,13 +38,15 @@ module.exports = {
     }
 
     const commandEmbed = new EmbedBuilder()
-      .setColor('#0099ff')
+      .setColor('#00f576')
       .setTitle(`Command: ${command.name}`)
+      .setURL("https://bot.nexoscreation.com")
       .addFields(
         { name: 'Description', value: command.description || 'No description available.' },
         { name: 'Usage', value: `\`${process.env.BOT_PREFIX}${command.name} ${command.usage || ''}\`` }
       )
-      .setFooter({ text: 'Nexos Creator', iconURL: 'https://i.imgur.com/wSTFkRM.png' });
+      .setFooter({ text: 'Nexos Creator', iconURL: 'https://nexoscreation.com/logo.png' })
+      .setTimestamp();
 
     message.channel.send({ embeds: [commandEmbed] });
   },
