@@ -7,7 +7,7 @@ module.exports = {
         const channel = member.guild.channels.cache.get(leaveChannelId);
         // Check if the channel exists
         if (!channel) return;
-        const leaveMessage = `😢 ${member.user.tag} has left the server. We'll miss you! If you ever decide to come back, we'll be here with open arms. Farewell!`;
+        const leaveMessage = `😢 ${member.user.tag} has left the server. We'll miss you!`;
         // Send a message to the channel
         channel.send(leaveMessage);
         // Optional: Send a direct message to the new member
