@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
 
 module.exports = {
+    name: 'ban',
+    description: 'Bans a user from the server',
     data: new SlashCommandBuilder()
         .setName('ban')
         .setDescription('Bans a user from the server')

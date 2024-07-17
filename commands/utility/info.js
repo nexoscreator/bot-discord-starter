@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
+	name: 'info',
+  description: 'Get server info.',
 	data: new SlashCommandBuilder()
 		.setName('info')
 		.setDescription('Get Server Info')

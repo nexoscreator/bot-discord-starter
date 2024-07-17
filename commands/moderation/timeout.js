@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
 
 module.exports = {
+    name: 'timeout',
+    description: 'Times out a user.',
     data: new SlashCommandBuilder()
         .setName('timeout')
         .setDescription('Times out a user')

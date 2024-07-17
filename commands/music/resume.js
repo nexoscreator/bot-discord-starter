@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
+    name: 'resume',
+  description: 'resume the currently paused song',
     data: new SlashCommandBuilder()
         .setName('resume')
         .setDescription('Resumes the currently paused song'),

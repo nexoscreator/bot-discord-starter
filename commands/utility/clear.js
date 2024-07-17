@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
 
 module.exports = {
+    name: 'clear',
+    description: 'Clears a specified number of messages from the channel',
     data: new SlashCommandBuilder()
         .setName('clear')
         .setDescription('Clears a specified number of messages from the channel')

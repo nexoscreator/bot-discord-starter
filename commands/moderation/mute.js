@@ -2,6 +2,8 @@ const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
 const { MuteRoleID } = require('../../config/bot.json');
 
 module.exports = {
+    name: 'mute',
+    description: 'Mutes a user',
     data: new SlashCommandBuilder()
         .setName('mute')
         .setDescription('Mutes a user')

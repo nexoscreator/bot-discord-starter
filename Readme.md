@@ -7,12 +7,17 @@ This bot Currently in Dev mode
 
 
 ## Features
-- Basic Commands (help, ping, clear, etc...)
-- Utility Commands (ban, kick, timeout, mute, etc...)
+- Basic Commands (help, ping, etc...)
+- Moderation Commands (ban, kick, timeout, mute, etc...)
+- Utility Commands (info, clear, ping, etc...)
+- Music Commands (play, pause, stop, skip, etc...)
 - Many Event like welcome message, leave message etc..
-- Music player mode
+- Also Youtube video notify, Blog post notify, github post
 - Auto Mod spam protection and other
 
 ## Upcoming
-- Youtube Notify
-- Github Notify 
+- Advance Modding
+- New Utility
+- Fix Notify
+- Serve Mileston
+- Embed commands more...

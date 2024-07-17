@@ -3,6 +3,8 @@ const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerSta
 const ytdl = require('ytdl-core');
 
 module.exports = {
+    name: 'play',
+  description: 'Plays a song from YouTube',
     data: new SlashCommandBuilder()
         .setName('play')
         .setDescription('Plays a song from YouTube')
