@@ -1,6 +1,6 @@
 // utils/fetchLatestVideo.js
 const axios = require('axios');
-const { youtubeApiKey, channelId } = require('./../config/bot.json');
+const { YT_API_PRIVET_KEY, YT_CHANNEL_ID } = require('./../config/extra.json');
 const sendNotification = require('./sendNotification');
 
 let lastVideoId = '';
@@ -10,11 +10,11 @@ const fetchLatestVideo = async () => {
     const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
         part: 'snippet',
-        channelId: channelId,
+        channelId: YT_CHANNEL_ID,
         maxResults: 1,
         order: 'date',
         type: 'video',
-        key: youtubeApiKey,
+        key: YT_API_PRIVET_KEY,
       },
     });
 

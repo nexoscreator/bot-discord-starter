@@ -1,10 +1,10 @@
-const { announceChannelId } = require('./../config/bot.json');
+const { ANNOUNCEMENT_ID } = require('./../config/guilds.json');
 
 module.exports = {
   name: 'servermilestone',
   execute(member) {
     const memberCount = member.guild.memberCount;
-    const channel = member.guild.channels.cache.get(announceChannelId);
+    const channel = member.guild.channels.cache.get(ANNOUNCEMENT_ID);
     if (!channel) return;
 
     if (memberCount === 100 || memberCount === 500 || memberCount === 1000) {

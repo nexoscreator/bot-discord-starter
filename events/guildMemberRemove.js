@@ -1,10 +1,10 @@
-const { leaveChannelId } = require('./../config/bot.json');
+const { LEAVE_ID } = require('./../config/guilds.json');
 
 module.exports = {
   name: 'guildMemberRemove',
   execute(member) {
     // Fetch the welcome channel
-    const channel = member.guild.channels.cache.get(leaveChannelId);
+    const channel = member.guild.channels.cache.get(LEAVE_ID);
     // Check if the channel exists
     if (!channel) return;
     const leaveMessage = `😢 ${member.user.tag} has left the server. We'll miss you!`;

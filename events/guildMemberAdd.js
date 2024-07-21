@@ -1,11 +1,11 @@
-const { welcomeChannelId } = require('./../config/bot.json');
+const { WELCOME_ID } = require('./../config/guilds.json');
 const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'guildMemberAdd',
   execute(member) {
     // Fetch the welcome channel
-    const channel = member.guild.channels.cache.get(welcomeChannelId);
+    const channel = member.guild.channels.cache.get(WELCOME_ID);
     // Check if the channel exists
     if (!channel) return;
     // Create the welcome embed

@@ -1,6 +1,6 @@
 // utils/sendNotification.js
 const { Client, GatewayIntentBits } = require('discord.js');
-const { discordChannelId } = require('./../config/bot.json');
+const { YOUTUBE_ID } = require('./../config/guilds.json');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
 client.once('ready', async () => {
@@ -13,7 +13,7 @@ const sendNotification = async (title, url) => {
       await client.login(process.env.DISCORD_TOKEN);
     }
 
-    const channel = client.channels.cache.get(discordChannelId);
+    const channel = client.channels.cache.get(YOUTUBE_ID);
     if (channel) {
       await channel.send(`📢 New Video: **${title}**\nWatch now: ${url}`);
     } else {

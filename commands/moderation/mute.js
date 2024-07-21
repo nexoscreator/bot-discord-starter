@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
-const { MuteRoleID } = require('../../config/bot.json');
+const { MUTE_ID } = require('../../config/guilds.json');
 
 module.exports = {
   name: 'mute',
@@ -21,7 +21,7 @@ module.exports = {
 
     if (member) {
       try {
-        const muteRole = interaction.guild.roles.cache.get(MuteRoleID);
+        const muteRole = interaction.guild.roles.cache.get(MUTE_ID);
         if (!muteRole) {
           return interaction.reply('Mute role not found.');
         }
