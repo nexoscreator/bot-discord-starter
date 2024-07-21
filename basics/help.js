@@ -20,10 +20,7 @@ module.exports = {
         .setTitle('Help - List of Commands')
         .setURL("https://bot.nexoscreation.com")
         .setDescription('Here\'s a list of all my commands:')
-        .addFields(
-          { name: 'Commands', value: commands.map(command => `\`${command.name}\`: ${command.description}`).join('\n') },
-          { name: 'Usage', value: `You can send \`${process.env.BOT_PREFIX}help [command name]\` to get info on a specific command!` }
-        )
+        .addFields({ name: 'Commands', value: commands.map(command => `\`${command.name}\`: ${command.description}`).join('\n') }, { name: 'Usage', value: `You can send \`${process.env.BOT_PREFIX}help [command name]\` to get info on a specific command!` })
         .setFooter({ text: 'Nexos Creator', iconURL: 'https://nexoscreation.com/logo.png' })
         .setTimestamp();
 
@@ -41,10 +38,7 @@ module.exports = {
       .setColor('#00f576')
       .setTitle(`Command: ${command.name}`)
       .setURL("https://bot.nexoscreation.com")
-      .addFields(
-        { name: 'Description', value: command.description || 'No description available.' },
-        { name: 'Usage', value: `\`${process.env.BOT_PREFIX}${command.name} ${command.usage || ''}\`` }
-      )
+      .addFields({ name: 'Description', value: command.description || 'No description available.' }, { name: 'Usage', value: `\`${process.env.BOT_PREFIX}${command.name} ${command.usage || ''}\`` })
       .setFooter({ text: 'Nexos Creator', iconURL: 'https://nexoscreation.com/logo.png' })
       .setTimestamp();
 

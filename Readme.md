@@ -1,9 +1,24 @@
-# Discord bot
+# Discord bot Starter Template 
 
-A automation bot for discord
+Note: This temple was not released, so please don't use at this time, some utilities are not working....
 
 ## Install
-This bot Currently in Dev mode
+
+```
+npm install
+```
+
+```
+npm start
+```
+
+```
+npm start:deploy
+```
+
+```
+npm start:delete
+```
 
 
 ## Features

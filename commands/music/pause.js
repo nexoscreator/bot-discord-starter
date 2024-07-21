@@ -1,24 +1,24 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-    name: 'pause',
-    description: 'Pauses the currently playing song',
-    data: new SlashCommandBuilder()
-        .setName('pause')
-        .setDescription('Pauses the currently playing song'),
-    async execute(interaction, client) {
-        const connection = client.voice?.connection;
+  name: 'pause',
+  description: 'Pauses the currently playing song',
+  data: new SlashCommandBuilder()
+    .setName('pause')
+    .setDescription('Pauses the currently playing song'),
+  async execute(interaction, client) {
+    const connection = client.voice?.connection;
 
-        if (!connection) {
-            return interaction.reply('I am not in a voice channel!');
-        }
+    if (!connection) {
+      return interaction.reply('I am not in a voice channel!');
+    }
 
-        const player = connection.player;
-        if (player) {
-            player.pause();
-            await interaction.reply('Paused the music!');
-        } else {
-            await interaction.reply('No music is playing!');
-        }
-    },
+    const player = connection.player;
+    if (player) {
+      player.pause();
+      await interaction.reply('Paused the music!');
+    } else {
+      await interaction.reply('No music is playing!');
+    }
+  },
 };

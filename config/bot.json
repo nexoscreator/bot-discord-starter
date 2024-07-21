@@ -1,9 +1,8 @@
 {
-  "welcomeChannelId": "1261305740212306041",
-  "leaveChannelId": "1092334971693318144",
-  "youtubeApiKey": "AIzaSyAKSY38FX6t7PTLj4UUx7EvfSvZt4IolMU",
-  "channelId": "UClFiZsXegdz1iNwnZPspFRA",
-  "discordChannelId": "1090193371328417834",
-  "announceChannelId": "1052113011931889684",
-  "MuteRoleID": "832187937675804690"
+  "BOT_NAME": "_YOUR_BOT_NAME_",
+  "BOT_ICON": "_YOUR_BOT_ICON_URL_",
+  "BOT_TOKEN": "_YOUR_BOT_PRIVET_TOKEN_",
+  "BOT_PREFIX": "_BOT_COMMAND_PREFIX_",
+  "BOT_CLINT_ID": "_YOUR_BOT_CLINT_ID_",
+  "BOT_PUBLIC_ID": "_YOUR_BOT_PUBLIC_ID_"
 }

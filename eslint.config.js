@@ -1,9 +1,9 @@
 export default [
-    {
-        files: ["src/**/*.js"],
-        ignores: ["**/*.config.js"],
-        rules: {
-            semi: "error"
-        }
+  {
+    files: ["src/**/*.js"],
+    ignores: ["**/*.config.js"],
+    rules: {
+      semi: "error"
     }
+  }
 ];

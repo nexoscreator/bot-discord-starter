@@ -23,6 +23,3 @@ jobs:
 
     - name: Install FFmpeg
       run: sudo apt-get install ffmpeg
-
-    - name: Run bot
-      run: node index.js

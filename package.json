@@ -1,7 +1,7 @@
 {
-  "name": "bot-nexos-discord",
-  "version": "1.0.0",
-  "description": "",
+  "name": "bot-discord-starter",
+  "version": "0.0.1",
+  "description": "under devlopment",
   "main": "index.js",
   "scripts": {
     "start": "node .",
