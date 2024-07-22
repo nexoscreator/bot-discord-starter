@@ -1,5 +1,5 @@
 {
-  "BOT_NAME": "_YOUR_BOT_NAME_",
+  "BOT_NAME": "process.env.DISCORD_BOT_NAME",
   "BOT_ICON": "_YOUR_BOT_ICON_URL_",
   "BOT_TOKEN": "process.env.DISCORD_BOT_TOKEN",
   "BOT_PREFIX": "_BOT_COMMAND_PREFIX_",
