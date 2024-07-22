@@ -4,6 +4,7 @@
   "description": "under devlopment",
   "main": "index.js",
   "scripts": {
+    "postinstall": "bash .bin/install.sh", 
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "node --trace-warnings",

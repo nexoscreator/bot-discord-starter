@@ -1,7 +1,10 @@
-name: Deploy Discord Bot
+name: Node.js CI
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
@@ -9,17 +12,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]  # Specify the Node.js versions you want to test against
+
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v2
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'
+        node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies
       run: npm install
 
-    - name: Install FFmpeg
-      run: sudo apt-get install ffmpeg
+    - name: Run tests
+      run: |
+        # Add your test command here
+        # For example, if you're using Jest:
+        # npm test
+        echo "No tests specified"  # Placeholder command
