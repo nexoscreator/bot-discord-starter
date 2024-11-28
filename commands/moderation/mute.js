@@ -1,38 +1,54 @@
-const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
-const { MUTE_ID } = require('../../config/guilds.json');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
+/**
+ * Command: mute
+ * Description: Mutes a member by assigning a "Muted" role.
+ */
 module.exports = {
-  name: 'mute',
-  description: 'Mutes a user',
   data: new SlashCommandBuilder()
     .setName('mute')
-    .setDescription('Mutes a user')
-    .addUserOption(option => option.setName('user').setDescription('The user to mute').setRequired(true))
-    .addStringOption(option => option.setName('reason').setDescription('The reason for the mute').setRequired(false)),
+    .setDescription('Mutes a member by assigning a "Muted" role')
+    .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
+    .addUserOption(option =>
+      option.setName('target')
+        .setDescription('The member to mute')
+        .setRequired(true)
+    )
+    .addStringOption(option =>
+      option.setName('reason')
+        .setDescription('Reason for the mute')
+        .setRequired(false)
+    ),
+
   async execute(interaction) {
-    const user = interaction.options.getUser('user');
-    const reason = interaction.options.getString('reason') || 'No reason provided';
+    try {
+      const target = interaction.options.getUser('target');
+      const reason = interaction.options.getString('reason') || 'No reason provided.';
+      const member = interaction.guild.members.cache.get(target.id);
+      const mutedRole = interaction.guild.roles.cache.find(role => role.name === 'Muted');
 
-    if (!interaction.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
-      return interaction.reply('You do not have permission to mute members.');
-    }
-
-    const member = interaction.guild.members.resolve(user);
-
-    if (member) {
-      try {
-        const muteRole = interaction.guild.roles.cache.get(MUTE_ID);
-        if (!muteRole) {
-          return interaction.reply('Mute role not found.');
-        }
-        await member.roles.add(muteRole, reason);
-        return interaction.reply(`${user.tag} has been muted for: ${reason}`);
-      } catch (error) {
-        console.error(error);
-        return interaction.reply('Failed to mute the member.');
+      if (!mutedRole) {
+        return await interaction.reply({
+          content: '❌ "Muted" role not found. Please create one before using this command.',
+          ephemeral: true,
+        });
       }
-    } else {
-      return interaction.reply('User not found.');
+
+      if (!member) {
+        return await interaction.reply({
+          content: `❌ Could not find the member: ${target.tag}`,
+          ephemeral: true,
+        });
+      }
+
+      await member.roles.add(mutedRole, reason);
+      await interaction.reply(`✅ Successfully muted ${target.tag} for: ${reason}`);
+    } catch (error) {
+      console.error('❌ Error executing mute command:', error);
+      await interaction.reply({
+        content: 'An error occurred while trying to mute the member.',
+        ephemeral: true,
+      });
     }
   },
 };

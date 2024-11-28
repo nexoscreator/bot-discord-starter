@@ -1,33 +1,46 @@
-const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
+/**
+ * Command: ban
+ * Description: Bans a member from the server.
+ */
 module.exports = {
-  name: 'ban',
-  description: 'Bans a user from the server',
   data: new SlashCommandBuilder()
     .setName('ban')
-    .setDescription('Bans a user from the server')
-    .addUserOption(option => option.setName('user').setDescription('The user to ban').setRequired(true))
-    .addStringOption(option => option.setName('reason').setDescription('The reason for the ban').setRequired(false)),
+    .setDescription('Bans a member from the server')
+    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+    .addUserOption(option =>
+      option.setName('target')
+        .setDescription('The member to ban')
+        .setRequired(true)
+    )
+    .addStringOption(option =>
+      option.setName('reason')
+        .setDescription('Reason for the ban')
+        .setRequired(false)
+    ),
+
   async execute(interaction) {
-    const user = interaction.options.getUser('user');
-    const reason = interaction.options.getString('reason') || 'No reason provided';
+    try {
+      const target = interaction.options.getUser('target');
+      const reason = interaction.options.getString('reason') || 'No reason provided.';
+      const member = interaction.guild.members.cache.get(target.id);
 
-    if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
-      return interaction.reply('You do not have permission to ban members.');
-    }
-
-    const member = interaction.guild.members.resolve(user);
-
-    if (member) {
-      try {
-        await member.ban({ reason });
-        return interaction.reply(`${user.tag} has been banned for: ${reason}`);
-      } catch (error) {
-        console.error(error);
-        return interaction.reply('Failed to ban the member.');
+      if (!member) {
+        return await interaction.reply({
+          content: `❌ Could not find the member: ${target.tag}`,
+          ephemeral: true,
+        });
       }
-    } else {
-      return interaction.reply('User not found.');
+
+      await member.ban({ reason });
+      await interaction.reply(`✅ Successfully banned ${target.tag} for: ${reason}`);
+    } catch (error) {
+      console.error('❌ Error executing ban command:', error);
+      await interaction.reply({
+        content: 'An error occurred while trying to ban the member.',
+        ephemeral: true,
+      });
     }
   },
 };

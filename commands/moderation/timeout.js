@@ -1,35 +1,53 @@
-const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
+/**
+ * Command: timeout
+ * Description: Temporarily mutes a member for a specific duration.
+ */
 module.exports = {
-  name: 'timeout',
-  description: 'Times out a user.',
   data: new SlashCommandBuilder()
     .setName('timeout')
-    .setDescription('Times out a user')
-    .addUserOption(option => option.setName('user').setDescription('The user to timeout').setRequired(true))
-    .addIntegerOption(option => option.setName('duration').setDescription('The duration of the timeout in minutes').setRequired(true))
-    .addStringOption(option => option.setName('reason').setDescription('The reason for the timeout').setRequired(false)),
+    .setDescription('Temporarily mutes a member')
+    .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
+    .addUserOption(option =>
+      option.setName('target')
+        .setDescription('The member to timeout')
+        .setRequired(true)
+    )
+    .addIntegerOption(option =>
+      option.setName('duration')
+        .setDescription('Duration in minutes')
+        .setRequired(true)
+    )
+    .addStringOption(option =>
+      option.setName('reason')
+        .setDescription('Reason for the timeout')
+        .setRequired(false)
+    ),
+
   async execute(interaction) {
-    const user = interaction.options.getUser('user');
-    const duration = interaction.options.getInteger('duration');
-    const reason = interaction.options.getString('reason') || 'No reason provided';
+    try {
+      const target = interaction.options.getUser('target');
+      const duration = interaction.options.getInteger('duration') || 10; // Default to 10 minutes
+      const reason = interaction.options.getString('reason') || 'No reason provided.';
+      const member = interaction.guild.members.cache.get(target.id);
 
-    if (!interaction.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
-      return interaction.reply('You do not have permission to timeout members.');
-    }
-
-    const member = interaction.guild.members.resolve(user);
-
-    if (member) {
-      try {
-        await member.timeout(duration * 60 * 1000, reason);
-        return interaction.reply(`${user.tag} has been timed out for ${duration} minutes for: ${reason}`);
-      } catch (error) {
-        console.error(error);
-        return interaction.reply('Failed to timeout the member.');
+      if (!member) {
+        return await interaction.reply({
+          content: `❌ Could not find the member: ${target.tag}`,
+          ephemeral: true,
+        });
       }
-    } else {
-      return interaction.reply('User not found.');
+
+      const timeoutMs = duration * 60 * 1000; // Convert minutes to milliseconds
+      await member.timeout(timeoutMs, reason);
+      await interaction.reply(`✅ ${target.tag} has been timed out for ${duration} minutes. Reason: ${reason}`);
+    } catch (error) {
+      console.error('❌ Error executing timeout command:', error);
+      await interaction.reply({
+        content: 'An error occurred while trying to timeout the member.',
+        ephemeral: true,
+      });
     }
   },
 };

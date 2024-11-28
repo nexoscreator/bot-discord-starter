@@ -1,19 +1,20 @@
-// events/ready.js
-const cron = require('node-cron');
-const fetchLatestVideo = require('../utils/fetchLatestVideo');
-const { Events } = require('discord.js');
-
+/**
+ * Event: ready
+ * Triggered when the bot successfully logs in and is ready.
+ */
 module.exports = {
-  name: Events.ClientReady,
-  once: true,
+  name: 'ready',
+  once: true, // Run this event only once
   execute(client) {
+    console.log(`✅ Logged in as ${client.user.tag}`);
+    console.log(`📊 Connected to ${client.guilds.cache.size} servers.`);
 
-    // Schedule task to run every 30 minutes
-    cron.schedule('*/30 * * * *', fetchLatestVideo);
+    // Set bot's presence
+    client.user.setPresence({
+      activities: [{ name: 'with Discord.js', type: 'PLAYING' }],
+      status: 'online', // Options: online, idle, dnd, invisible
+    });
 
-    // Initial fetch
-    fetchLatestVideo();
-
-    console.log(`Ready! Logged in as ${client.user.tag}`);
+    console.log('🤖 Bot is ready and operational!');
   },
 };

@@ -1,33 +1,46 @@
-const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
+/**
+ * Command: kick
+ * Description: Kicks a member from the server.
+ */
 module.exports = {
-  name: 'kick',
-  description: 'Kick a user from server.',
   data: new SlashCommandBuilder()
     .setName('kick')
-    .setDescription('Kicks a user from the server')
-    .addUserOption(option => option.setName('user').setDescription('The user to kick').setRequired(true))
-    .addStringOption(option => option.setName('reason').setDescription('The reason for the kick').setRequired(false)),
+    .setDescription('Kicks a member from the server')
+    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+    .addUserOption(option =>
+      option.setName('target')
+        .setDescription('The member to kick')
+        .setRequired(true)
+    )
+    .addStringOption(option =>
+      option.setName('reason')
+        .setDescription('Reason for the kick')
+        .setRequired(false)
+    ),
+
   async execute(interaction) {
-    const user = interaction.options.getUser('user');
-    const reason = interaction.options.getString('reason') || 'No reason provided';
+    try {
+      const target = interaction.options.getUser('target');
+      const reason = interaction.options.getString('reason') || 'No reason provided.';
+      const member = interaction.guild.members.cache.get(target.id);
 
-    if (!interaction.member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
-      return interaction.reply('You do not have permission to kick members.');
-    }
-
-    const member = interaction.guild.members.resolve(user);
-
-    if (member) {
-      try {
-        await member.kick(reason);
-        return interaction.reply(`${user.tag} has been kicked for: ${reason}`);
-      } catch (error) {
-        console.error(error);
-        return interaction.reply('Failed to kick the member.');
+      if (!member) {
+        return await interaction.reply({
+          content: `❌ Could not find the member: ${target.tag}`,
+          ephemeral: true,
+        });
       }
-    } else {
-      return interaction.reply('User not found.');
+
+      await member.kick(reason);
+      await interaction.reply(`✅ Successfully kicked ${target.tag} for: ${reason}`);
+    } catch (error) {
+      console.error('❌ Error executing kick command:', error);
+      await interaction.reply({
+        content: 'An error occurred while trying to kick the member.',
+        ephemeral: true,
+      });
     }
   },
 };
