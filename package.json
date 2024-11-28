@@ -1,29 +1,45 @@
 {
   "name": "bot-discord-starter",
-  "version": "0.0.1",
-  "description": "under devlopment",
+  "version": "1.0.0",
+  "description": "A modular and scalable Discord bot starter template using Discord.js",
   "main": "index.js",
   "scripts": {
-    "postinstall": "bash .bin/install.sh", 
-    "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "node --trace-warnings",
-    "start:deploy": "node --trace-warnings deploycommands.js",
-    "start:delete": "node --trace-warnings deletecommands.js"
+    "start:bot": "node --trace-warnings index.js",
+    "start:deploy": "node --trace-warnings deploy-commands.js",
+    "start:delete": "node --trace-warnings delete-commands.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "discord",
+    "discord-bot",
+    "discord.js",
+    "bot",
+    "template"
+  ],
+  "author": "Nexos Creator",
+  "license": "MIT",
   "dependencies": {
-    "@discordjs/voice": "^0.17.0",
-    "axios": "^1.7.2",
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
-    "node-cron": "^3.0.3",
-    "ytdl-core": "^4.11.5"
+    "fs": "^0.0.1-security",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7"
   },
   "devDependencies": {
     "eslint": "^9.6.0"
   },
-  "type": "commonjs"
+  "engines": {
+    "node": ">=16.6.0"
+  },
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nexoscreator/discord-bot-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nexoscreator/discord-bot-starter/issues"
+  },
+  "homepage": "https://github.com/nexoscreator/discord-bot-starter#readme"
 }

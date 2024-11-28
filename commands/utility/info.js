@@ -1,31 +1,32 @@
 const { SlashCommandBuilder } = require('discord.js');
 
+/**
+ * Command: info
+ * Description: Provides bot information.
+ */
 module.exports = {
-  name: 'info',
-  description: 'Get server info.',
   data: new SlashCommandBuilder()
     .setName('info')
-    .setDescription('Get Server Info')
-    .addSubcommand(subcommand =>
-      subcommand
-      .setName('user')
-      .setDescription('Info about a user')
-      .addUserOption(option => option.setName('target').setDescription('The user')))
-    .addSubcommand(subcommand =>
-      subcommand
-      .setName('server')
-      .setDescription('Info about the server')),
-  async execute(interaction) {
-    if (interaction.options.getSubcommand() === 'user') {
-      const user = interaction.options.getUser('target');
+    .setDescription('Displays bot information'),
 
-      if (user) {
-        await interaction.reply(`Username: ${user.username}\nID: ${user.id}`);
-      } else {
-        await interaction.reply(`Your username: ${interaction.user.username}\nYour ID: ${interaction.user.id}`);
-      }
-    } else if (interaction.options.getSubcommand() === 'server') {
-      await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
+  async execute(interaction) {
+    try {
+      const { client } = interaction;
+      const infoMessage = `
+        🤖 **Bot Information**:
+        - Name: ${client.user.tag}
+        - Servers: ${client.guilds.cache.size}
+        - Users: ${client.users.cache.size}
+        - Created: ${client.user.createdAt.toDateString()}
+      `;
+
+      await interaction.reply({ content: infoMessage, ephemeral: true });
+    } catch (error) {
+      console.error('❌ Error executing info command:', error);
+      await interaction.reply({
+        content: 'An error occurred while fetching bot information.',
+        ephemeral: true,
+      });
     }
   },
 };
