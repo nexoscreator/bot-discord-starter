@@ -119,6 +119,7 @@ This command loads all command files from the commands directory, and then deplo
 ├── deploy-commands.js          # Script for deploying slash commands
 ├── package.json                # Dependencies and metadata
 └── README.md                   # Project documentation
+```
 
 ---
 
