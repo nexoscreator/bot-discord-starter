@@ -4,6 +4,10 @@
  */
 const { SlashCommandBuilder } = require('discord.js');
 
+/**
+ * Command: ping
+ * Description: Checks bot responsiveness and API latency.
+ */
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('ping')
