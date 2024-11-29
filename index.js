@@ -78,9 +78,47 @@ for (const file of eventFiles) {
  * Error Handling
  * Logs errors gracefully to prevent bot crashes
  */
-client.on('error', console.error); // Handle client errors
+
+// Error handling for client events
+client.on('error', (error) => {
+  console.error('❌ Discord.js client encountered an error:', error);
+});
+
 client.on('shardError', (error) => {
-  console.error('A websocket connection encountered an error:', error);
+  console.error('❌ WebSocket encountered an error:', error);
+});
+
+// Listen for rate limit warnings
+client.on('rateLimit', (info) => {
+  console.warn('⚠️ Rate limit hit:', info);
+});
+
+// Handle missing permissions or configuration issues
+client.on('guildCreate', (guild) => {
+  const botMember = guild.members.me;
+  const missingPermissions = botMember.permissions.missing([
+    'VIEW_CHANNEL',
+    'SEND_MESSAGES',
+    'EMBED_LINKS',
+  ]);
+
+  if (missingPermissions.length > 0) {
+    console.error(
+      `⚠️ Missing permissions in guild "${guild.name}":`,
+      missingPermissions
+    );
+  }
+});
+
+// General uncaught errors
+process.on('uncaughtException', (error) => {
+  console.error('❌ Uncaught exception:', error);
+  // Optionally exit the process if critical
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Unhandled promise rejection at:', promise, 'reason:', reason);
 });
 
 /**

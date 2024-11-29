@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 
 /**
  * Command: joke
@@ -12,8 +12,8 @@ module.exports = {
 
   async execute(interaction) {
     try {
-      const response = await fetch('https://official-joke-api.appspot.com/random_joke');
-      const joke = await response.json();
+      // const response = await fetch('https://official-joke-api.appspot.com/random_joke');
+      // const joke = await response.json();
 
       await interaction.reply(`😂 **${joke.setup}**\n\n*${joke.punchline}*`);
     } catch (error) {

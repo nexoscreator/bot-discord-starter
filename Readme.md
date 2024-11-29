@@ -2,37 +2,35 @@
 
 Welcome to the **Discord Bot Starter Template**! This project serves as a foundation for building feature-rich and scalable Discord bots using the [Discord.js](https://discord.js.org) library. It incorporates modular design, dynamic command loading, error handling, and best practices to streamline bot development.
 
-Let me know if you'd like adjustments or need specific sections tailored to your project!
-
 ---
 
 ## 🌟 Features
 
-✨ **Modular Command System**  
+#### ✨ **Modular Command System**  
 Organized by categories, making it easy to add or edit commands.  
 - **Slash Commands** `/help`, `/ping`, `/info`, etc.
 - **Prefix Commands** `!help`, `!ping`, and more.
 - **Moderation Tools** Ban, Mute, Timeout, Warn.
 - **Fun Commands** Generate jokes and interactive fun features.
 
-⚙️ **Event Handling**  
+#### ⚙️ **Event Handling**  
 Built-in support for all major Discord events, including custom events.  
 - **Dynamic Command and Event Loading** Auto-load commands and events for scalability.
 
-📜 **Configuration Management**  
+#### 📜 **Configuration Management**  
 Easily manage settings like bot tokens and prefixes using `.env` or JSON config files.  
 
-📡 **API Integrations**  
+#### 📡 **API Integrations**  
 Includes examples for GitHub, RSS feeds, and more.  
 
-🛠️ **Utility Functions**  
+#### 🛠️ **Utility Functions**  
 Pre-built utilities for logging, embed creation, and more to streamline development.  
 - **Utilities** Includes logging, error handling, embed builders, and more.
 
-💾 **Database Support**  
+#### 💾 **Database Support**  
 Ready-to-use structure for integrating MongoDB or other databases.  
 
-🔒 **Secure and Scalable**  
+#### 🔒 **Secure and Scalable**  
 Follows best practices for secure token handling and scalable architecture.  
 - **Error Handling** Centralized and robust error management.
 
@@ -51,8 +49,8 @@ Follow these steps to set up the bot on your local machine:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/nexoscreator/bot-discord-starter.git
-cd bot-discord-starter
+git clone https://github.com/nexoscreation/discord-bot-template.git
+cd discord-bot-template
 ```
 
 2. Install dependencies:
@@ -60,22 +58,30 @@ cd bot-discord-starter
 npm install
 ```
 
-3.Configure environment variables:
+3. Configure environment variables:
 Create a .env file in the root directory and add:
 ```env
 DISCORD_BOT_TOKEN=
+DISCORD_BOT_PREFIX=!
 DISCORD_BOT_CLIENT_ID=
+DISCORD_BOT_CLIENT_SECRET=
 DISCORD_GUILD_ID=
-BOT_PREFIX=!
 ```
 
 ### 📜 Usage
 
-#### Start the bot:
+#### Start the bot: (Production)
 
 You can run the bot using the following command:
 ```bash
-npm run start:bot
+npm run bot:start
+```
+
+#### Start the bot: (Devlopment)
+
+Support hot reload:
+```bash
+npm run dev
 ```
 
 ### Useful Commands ⚙️
@@ -83,13 +89,13 @@ npm run start:bot
 #### Deploy new commands
 To deploy all slash commands to your Discord guild, run:
 ```bash
-npm run start:deploy
+npm run bot:deploy
 ```
 
 #### Delete all application (/) commands
 To delete all the existing slash commands in your Discord guild, run:
 ```bash
-npm run start:delete
+npm run bot:delete
 ```
 
 This command loads all command files from the commands directory, and then deploys them to your specified guild.
@@ -109,19 +115,10 @@ This command loads all command files from the commands directory, and then deplo
 ├── utils/                      # Utility functions
 ├── .env                        # Environment variables
 ├── index.js                    # Main entry point
-├── delete-commands.js       # Script for deleting all slash commands
-├── deploy-commands.js       # Script for deploying slash commands
+├── delete-commands.js          # Script for deleting all slash commands
+├── deploy-commands.js          # Script for deploying slash commands
 ├── package.json                # Dependencies and metadata
 └── README.md                   # Project documentation
-
----
-
-#### Advance .env config
-```bash
-MONGO_URI=your-database-uri
-GITHUB_TOKEN=your-github-api-token
-YOUTUBE_TOKEN=your-youtube-token
-```
 
 ---
 

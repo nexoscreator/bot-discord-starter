@@ -4,9 +4,9 @@
   "description": "A modular and scalable Discord bot starter template using Discord.js",
   "main": "index.js",
   "scripts": {
-    "start:bot": "node --trace-warnings index.js",
-    "start:deploy": "node --trace-warnings deploy-commands.js",
-    "start:delete": "node --trace-warnings delete-commands.js",
+    "bot:start": "node --trace-warnings index.js",
+    "bot:deploy": "node --trace-warnings deploy-commands.js",
+    "bot:delete": "node --trace-warnings delete-commands.js",
     "dev": "nodemon index.js",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,6 +25,7 @@
     "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
     "jest": "^29.7.0",
+    "node-fetch": "^3.3.2",
     "nodemon": "^3.1.7"
   },
   "devDependencies": {

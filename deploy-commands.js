@@ -33,14 +33,19 @@ function loadCommands() {
  * Deploy the loaded commands to the guild.
  */
 async function deployCommands() {
-  const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+  if (!process.env.DISCORD_BOT_CLIENT_ID || !process.env.DISCORD_GUILD_ID || !process.env.DISCORD_BOT_TOKEN) {
+    console.error('Missing required environment variables. Check your .env file.');
+    process.exit(1);
+  }
+
+  const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_BOT_TOKEN);
 
   try {
     console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
     // Refreshing the commands in the guild
     const data = await rest.put(
-      Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), 
+      Routes.applicationGuildCommands(process.env.DISCORD_BOT_CLIENT_ID, process.env.DISCORD_GUILD_ID),
       { body: commands }
     );
 
